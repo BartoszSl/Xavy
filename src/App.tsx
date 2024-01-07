@@ -1,26 +1,72 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import {
+	Navigate,
+	Outlet,
+	RouterProvider,
+	createBrowserRouter,
+} from 'react-router-dom';
+import ShopPage from './pages/Shop';
+import DashboardRootLayout from './pages/DashboardRoot';
+import AuthPage from './pages/Auth';
+import { action as logoutAction } from './pages/Logout';
+
+export const DefaultPage: React.FC = () => {
+	return (
+		<>
+			<Navigate to='/shop/main' />
+			<Outlet />
+		</>
+	);
+};
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <DefaultPage />,
+		children: [
+			{
+				path: 'shop',
+				children: [
+					{
+						path: 'main',
+						index: true,
+						element: <ShopPage />,
+					},
+					{
+						path: 'products',
+					},
+				],
+			},
+			{
+				path: 'dashboard',
+				element: <DashboardRootLayout />,
+				children: [
+					{
+						path: 'main',
+						index: true,
+					},
+					{ path: 'stats' },
+				],
+			},
+			{
+				path: 'auth',
+				element: <AuthPage />,
+			},
+			{
+				path: 'logout',
+				action: logoutAction,
+			},
+		],
+	},
+]);
+
+const App: React.FC = () => {
+	return (
+		<>
+			<RouterProvider router={router} />
+		</>
+	);
+};
 
 export default App;
