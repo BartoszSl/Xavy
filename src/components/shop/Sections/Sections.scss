@@ -1,13 +1,47 @@
 @use '../../../colors' as c;
 
+.decorator {
+	position: relative;
+	margin-top: 4rem;
+	.first-ball {
+		top: 1vw;
+		left: 6vw;
+	}
+	.second-ball {
+		top: 4.5vw;
+		left: 25vw;
+	}
+	.third-ball {
+		top: 4vw;
+		right: 23vw;
+	}
+	.fourth-ball {
+		top: 12vw;
+		right: 8vw;
+	}
+}
+
 .section {
+	min-height: 100vh;
+
+	// main
+
 	&--main {
+		min-height: (100vh - 10vh);
+		margin-top: 4rem;
 		position: relative;
+	}
+	&--main {
 		&__header {
+			display: flex;
+			flex-direction: column;
 			text-align: center;
 			font-size: 3.2rem;
 			font-weight: 700;
-			span {
+			.change-place {
+				display: inline-block;
+			}
+			.gradient {
 				background: linear-gradient(
 					87deg,
 					#e6e5ff 10%,
@@ -43,18 +77,20 @@
 				cursor: pointer;
 			}
 			.newsletter {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
 				background-color: c.$primary;
-				padding: 0.7rem 2.5rem;
 				color: white;
 				border-radius: 2rem;
-				p {
-					font-size: 1rem;
-				}
-				i {
-					font-size: 0.8rem;
+				&--content {
+					display: flex;
+					align-items: center;
+					gap: 0.75rem;
+
+					p {
+						font-size: 1rem;
+					}
+					i {
+						font-size: 0.8rem;
+					}
 				}
 			}
 			.allProducts {
@@ -233,9 +269,82 @@
 			}
 		}
 	}
+	&--popProducts {
+		padding-top: 2.5rem;
+		.first-row {
+			display: flex;
+			justify-content: space-between;
+		}
+		&__header {
+			font-size: 4.8rem;
+			line-height: 100%;
+			font-weight: 700;
+		}
+		&__intro {
+			font-size: 1rem;
+			width: 13rem;
+			font-weight: 400;
+		}
+		&__content {
+			display: flex;
+			justify-content: space-between;
+			.left-side {
+				display: flex;
+				flex-direction: column;
+				gap: 0.8rem;
+				.parse-cards {
+					display: flex;
+					gap: 1.5rem;
+					.mini-card {
+						width: 16.75rem;
+						height: 11.5rem;
+						border-radius: 2rem;
+						box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+						header {
+							font-size: 1.2rem;
+							font-weight: 500;
+						}
+					}
+					.card-trending {
+						padding: 1rem .8rem 1rem 1.5rem;
+						text-align: left;
+						.content {
+							display: flex;
+							flex-wrap: wrap;
+							gap: 0.65rem;
+							margin-top: 1rem;
+							.hashtag-block {
+								font-size: 0.7rem;
+								font-weight: 700;
+								padding: 0.5rem 0.85rem;
+								border-radius: 1rem;
+								background: rgba(99, 94, 247, 0.3);
+							}
+						}
+					}
+					.card-promoCode {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						justify-content: center;
+						gap: 0.25rem;
+						p {
+							font-size: 2.4rem;
+							font-weight: 700;
+							color: c.$primary;
+						}
+						span  {
+							font-size: 1rem;
+							color: c.$lighter-grey;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-@media (min-width: 395px ) and (max-width: 567px) {
+@media (min-width: 395px) and (max-width: 567px) {
 	.section {
 		&--main {
 			&__links {
@@ -250,6 +359,27 @@
 		&--main {
 			&__links {
 				top: 14rem;
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.decorator {
+		.second-ball {
+			display: none;
+		}
+		.third-ball {
+			display: none;
+		}
+	}
+	.section {
+		&--main {
+			&__dashboard {
+				justify-content: center;
+				.shopTile {
+					margin-top: 8rem;
+				}
 			}
 		}
 	}
@@ -313,19 +443,6 @@
 		&--main {
 			.policyTerms-link {
 				gap: 10rem;
-			}
-		}
-	}
-}
-
-@media (max-width: 768px) {
-	.section {
-		&--main {
-			&__dashboard {
-				justify-content: center;
-				.shopTile {
-					margin-top: 8rem;
-				}
 			}
 		}
 	}

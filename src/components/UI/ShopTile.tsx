@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { tileProps } from '../shop/Sections/Main';
+import { motion } from 'framer-motion';
 
 import './UI.scss';
 
@@ -28,20 +29,32 @@ const ShopTile: React.FC<{ tile: tileProps }> = ({ tile }) => {
 	}, []);
 
 	let content = (
-		<div className='shopTile' style={styles}>
+		<motion.div
+			variants={{
+				hidden: { scale: 0 },
+				visible: {
+					scale: [0.7, 1.2, 1],
+				},
+			}}
+			exit={{ scale: 1 }}
+			transition={{ type: 'spring', duration: 1 }}
+			initial='hidden'
+			animate='visible'
+			className='shopTile'
+			style={styles}>
 			{tile.content}
-		</div>
+		</motion.div>
 	);
 
 	if (pageWidth < breakPoint) {
-		if(tile.small) {
+		if (tile.small) {
 			content = (
-				<div className='shopTile' style={styles}>
+				<motion.div className='shopTile' style={styles} >
 					{tile.content}
-				</div>
+				</motion.div>
 			);
-		}else {
-			content = <></>
+		} else {
+			content = <></>;
 		}
 	}
 
