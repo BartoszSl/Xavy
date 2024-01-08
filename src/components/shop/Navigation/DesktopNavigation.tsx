@@ -78,7 +78,7 @@ const DesktopNavigation: React.FC = () => {
 				</form>
 				<div className='search--links'>
 					{DUMMY_LINKS.map((link) => (
-						<Link id={link.id} to={link.to}>
+						<Link key={link.id} to={link.to}>
 							{link.text}
 						</Link>
 					))}
