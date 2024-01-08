@@ -31,12 +31,18 @@ body {
 .container {
 	width: 100%;
 	max-width: 1440px;
-	padding: 4rem 3rem 0 ;
+	padding: 4rem 3rem 0;
 	margin: 0 auto;
 }
 
 .design-ball {
-	fill: linear-gradient(140deg, rgba(217, 217, 217, 0) 19.64%, #635ef7 96.61%);
+	position: absolute;
+	background: linear-gradient(
+		140deg,
+		rgba(217, 217, 217, 0) 19.64%,
+		#635ef7 96.61%
+	);
+	border-radius: 50%;
 	filter: blur(2.5px);
 	&--small {
 		width: 35px;
@@ -56,6 +62,28 @@ body {
 	&--reverse_rotate {
 		transform: rotate(30deg);
 	}
+	&--animation {
+		animation: ball-rotation 15s infinite;
+	}
+	&--animation__reverse {
+		animation: ball-rotation 10s infinite reverse;
+	}
+}
+
+@keyframes ball-rotation {
+	0%,
+	100% {
+		transform: translateY(0) translateX(0);
+	}
+	25% {
+		transform: translateY(-20px) translateX(20px);
+	}
+	50% {
+		transform: translateY(0) translateX(40px);
+	}
+	75% {
+		transform: translateY(20px) translateX(20px);
+	}
 }
 
 @media (min-width: 568px) {
@@ -63,7 +91,6 @@ body {
 		font-size: 80%;
 	}
 }
-
 
 @media (min-width: 768px) {
 	html {
