@@ -269,6 +269,9 @@
 			}
 		}
 	}
+
+	// Shop Products section
+
 	&--popProducts {
 		padding-top: 2.5rem;
 		.first-row {
@@ -287,11 +290,89 @@
 		}
 		&__content {
 			display: flex;
+			flex-direction: column;
 			justify-content: space-between;
+			margin-top: 0.8rem;
+			gap: 1rem;
+			.product-link {
+				position: absolute;
+				width: 1.75rem;
+				height: 1.75rem;
+				color: c.$grey;
+				background-color: white;
+				box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+				border-radius: 13px;
+				i {
+					position: absolute;
+					top: 25%;
+					left: 30%;
+					font-size: 0.8rem;
+					transform: rotate(-45deg);
+				}
+			}
 			.left-side {
 				display: flex;
 				flex-direction: column;
 				gap: 0.8rem;
+				.big-card {
+					position: relative;
+					display: flex;
+					width: 35rem;
+					height: 11.5rem;
+					border-radius: 2rem;
+					box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.25);
+					.content {
+						p {
+							font-weight: 700;
+							font-size: 1.6rem;
+						}
+					}
+					.svg {
+						background-repeat: no-repeat;
+						height: 11.5rem;
+					}
+				}
+				.card-SHT {
+					background: rgba(99, 94, 247, 0.3);
+					padding-right: 2.5rem;
+					padding-left: 1.5rem;
+					.svg {
+						margin-top: 1rem;
+						background-image: url('../../../assets/img/clothesSvg.svg');
+						width: 15rem;
+					}
+					.content {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						justify-content: center;
+						gap: 1.5rem;
+						a {
+							padding: 0.75rem 3rem;
+							font-size: 0.8rem;
+							border-radius: 1.5rem;
+							background-color: white;
+							font-weight: 500;
+							color: black;
+							text-decoration: none;
+						}
+					}
+				}
+				.card-SPTS {
+					background: c.$yellow;
+					padding: 0 2.75rem 0 1.5rem;
+					.svg {
+						background-image: url('../../../assets/img/sportStorySet.svg');
+						width: 27rem;
+					}
+					.content {
+						margin: auto 0;
+					}
+					.product-link {
+						top: 0.8rem;
+						right: 0.8rem;
+					}
+				}
 				.parse-cards {
 					display: flex;
 					gap: 1.5rem;
@@ -306,7 +387,7 @@
 						}
 					}
 					.card-trending {
-						padding: 1rem .8rem 1rem 1.5rem;
+						padding: 1rem 0.8rem 1rem 1.5rem;
 						text-align: left;
 						.content {
 							display: flex;
@@ -333,10 +414,46 @@
 							font-weight: 700;
 							color: c.$primary;
 						}
-						span  {
+						span {
 							font-size: 1rem;
 							color: c.$lighter-grey;
 						}
+					}
+				}
+			}
+			.right-side {
+				.parse-cards {
+					display: flex;
+					gap: 1rem;
+				}
+				.bottom-card {
+					position: relative;
+					align-items: center;
+					display: flex;
+					gap: 0.4rem;
+					width: 100%;
+					margin-top: 0.7rem;
+					padding-left: 1.85rem;
+					border-radius: 2rem;
+					background: rgba(42, 97, 219, 0.3);
+					.content {
+						header {
+							font-weight: 700;
+							color: black;
+							font-size: 1.2rem;
+						}
+						p {
+							font-weight: 500;
+							font-size: 0.8rem;
+							color: c.$lighter-grey;
+						}
+					}
+					img {
+						width: 15.5rem;
+					}
+					.product-link {
+						top: 0.8rem;
+						right: 0.8rem;
 					}
 				}
 			}
@@ -349,6 +466,15 @@
 		&--main {
 			&__links {
 				top: 14rem;
+			}
+		}
+		&--popProducts {
+			&__content {
+				.left-side {
+					.big-card {
+						// width: 35rem;
+					}
+				}
 			}
 		}
 	}
@@ -413,6 +539,15 @@
 			}
 			.policyTerms-link {
 				gap: 9rem;
+			}
+		}
+		&--popProducts {
+			&__content {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				margin-top: 0.8rem;
+				gap: 1rem;
 			}
 		}
 	}
