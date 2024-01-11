@@ -18,6 +18,7 @@ body {
 
 .brand {
 	&--name {
+		position: relative;
 		font-family: 'Glory', sans-serif;
 		font-size: 2em;
 		font-weight: 700;
