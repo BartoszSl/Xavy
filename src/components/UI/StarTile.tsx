@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
-import { Starproducts } from '../shop/Sections/PopProducts';
+import { Starproducts, animationType } from '../shop/Sections/PopProducts';
+import { motion } from 'framer-motion';
 
-const StarTile: React.FC<{ product: Starproducts }> = ({ product }) => {
+const StarTile: React.FC<{ product: Starproducts; animation: animationType }> = ({
+	product,
+	animation,
+}) => {
 	return (
-		<div className='star_card'>
+		<motion.div {...animation} className='star_card'>
 			<div className='first-row'>
 				<div className='colors'>
 					{product.colors.map((color) => (
-						<div className={`color color-${color}`}></div>
+						<div key={color} className={`color color-${color}`}></div>
 					))}
 				</div>
 				<Link to=''>
@@ -23,7 +27,7 @@ const StarTile: React.FC<{ product: Starproducts }> = ({ product }) => {
 				</div>
 				<div className='right'>${product.price}</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

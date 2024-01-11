@@ -98,3 +98,15 @@
 		}
 	}
 }
+
+@media (min-width: 992px) {
+	.star_card {
+		width: 12.5rem;
+	}
+}
+
+@media (min-width: 1440px) {
+	.star_card {
+		width: 15rem;
+	}
+}
