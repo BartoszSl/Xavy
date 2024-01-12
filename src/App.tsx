@@ -10,6 +10,9 @@ import ShopPage from './pages/Shop';
 import DashboardRootLayout from './pages/DashboardRoot';
 import AuthPage from './pages/Auth';
 import { action as logoutAction } from './pages/Logout';
+import ProductDetailsPage from './pages/ProductDetails';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './util/http';
 
 export const DefaultPage: React.FC = () => {
 	return (
@@ -30,11 +33,11 @@ const router = createBrowserRouter([
 				children: [
 					{
 						path: 'main',
-						index: true,
 						element: <ShopPage />,
 					},
 					{
-						path: 'products',
+						path: 'product-details/:id',
+						element: <ProductDetailsPage />
 					},
 				],
 			},
@@ -63,9 +66,9 @@ const router = createBrowserRouter([
 
 const App: React.FC = () => {
 	return (
-		<>
+		<QueryClientProvider client={queryClient}>
 			<RouterProvider router={router} />
-		</>
+		</QueryClientProvider>
 	);
 };
 
