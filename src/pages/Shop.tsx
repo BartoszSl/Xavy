@@ -1,17 +1,19 @@
 import MainSection from '../components/shop/Sections/Main';
 import ShopNavigation from '../components/shop/Navigation/ShopNavigation';
-import Decorator from '../components/shop/Sections/Decorator';
-import PopProducts from '../components/shop/Sections/PopProducts';
+import PopProductsSection from '../components/shop/Sections/PopProducts';
+import ReviewsSection from '../components/shop/Sections/Reviews';
+import FooterSection from '../components/shop/Sections/Footer';
 
 const ShopPage: React.FC = () => {
 	return (
 		<>
 			<ShopNavigation />
 			<main className='container'>
-				<Decorator />
 				<MainSection />
-				<PopProducts />
+				<PopProductsSection />
 			</main>
+			<ReviewsSection />
+			<FooterSection />
 		</>
 	);
 };

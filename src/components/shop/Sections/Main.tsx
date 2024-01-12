@@ -140,7 +140,11 @@ const MainSection: React.FC = () => {
 	const transitionSett = { duration: 0.5 };
 
 	return (
-		<section className='section section--main'>
+		<section className='section section--main' id='main'>
+			<div className='design-ball  design-ball--animation design-ball--small first-ball'></div>
+			<div className='design-ball design-ball--animation__reverse design-ball--big design-ball--reverse_rotate second-ball'></div>
+			<div className='design-ball design-ball--small  design-ball--animation__reverse design-ball--normal_rotate third-ball'></div>
+			<div className='design-ball design-ball--animation design-ball--medium design-ball--reverse_rotate fourth-ball'></div>
 			<motion.h2
 				className='section--main__header'
 				variants={{

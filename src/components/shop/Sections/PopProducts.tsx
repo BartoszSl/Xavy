@@ -3,6 +3,8 @@ import './Sections.scss';
 import StarTile from '../../UI/StarTile';
 import { useEffect, useMemo, useRef } from 'react';
 import { motion, useAnimation, AnimationControls } from 'framer-motion';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/index';
 
 export type hashtagsType = {
 	id: string;
@@ -50,28 +52,9 @@ export type Starproducts = {
 	title: string;
 	short_name: string;
 	price: number;
+	author: string;
+	rates: number;
 };
-
-const DUMMY_STARPRODUCTS: Starproducts[] = [
-	{
-		id: 'p1',
-		colors: ['red'],
-		img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMPzzQMjZlRSQ8Glx9lQvTPfoFGXmu7X-xfA',
-		category: 'Shoes',
-		title: 'RedAI Force',
-		short_name: 'Sneakers',
-		price: 39,
-	},
-	{
-		id: 'p2',
-		colors: ['grey'],
-		img: 'https://mks-meble.pl/41312-large_default/skandynawski-fotel-tapicerowany-z-mozliwoscia-wyboru-tkaniny-eli-monolith-25100.jpg',
-		category: 'Furniture',
-		title: 'Armchair Grey',
-		short_name: 'Armchair',
-		price: 53,
-	},
-];
 
 export type animationType = {
 	animate: AnimationControls;
@@ -86,7 +69,11 @@ export type animationType = {
 	};
 };
 
-const PopProducts: React.FC = () => {
+const PopProductsSection: React.FC = () => {
+	const products = useSelector((state: RootState) => state.products.products);
+
+	console.log(products);
+
 	const sectionRef = useRef<HTMLDivElement>(null);
 	const scaleAnimationF = useAnimation();
 	const showUpAnimationF = useAnimation();
@@ -122,10 +109,16 @@ const PopProducts: React.FC = () => {
 					rect.top + 200 < window.innerHeight && rect.bottom >= 0;
 				if (isVisible && !isAnimating) {
 					isAnimating = true;
-
-					element.scrollIntoView({
-						block: 'start',
+					window.scrollTo({
+						top: element.offsetTop,
+						behavior: 'smooth',
 					});
+
+					document.body.style.overflow = 'hidden';
+					setTimeout(() => {
+						document.body.style.overflow = '';
+					}, 1000);
+
 					controls.start({ opacity: 1 });
 					showUp.animate.start({ opacity: 1, y: 0 });
 					scaleAnimation.animate.start({ scale: [0.95, 1.05, 0.95, 1] });
@@ -147,6 +140,10 @@ const PopProducts: React.FC = () => {
 			initial={{ opacity: 0 }}
 			animate={controls}
 			className='section section--popProducts'>
+			<div className='design-ball  design-ball--animation design-ball--small first-ball'></div>
+			<div className='design-ball design-ball--animation__reverse design-ball--big design-ball--reverse_rotate second-ball'></div>
+			<div className='design-ball design-ball--small  design-ball--animation__reverse design-ball--normal_rotate third-ball'></div>
+			<div className='design-ball design-ball--animation design-ball--medium design-ball--reverse_rotate fourth-ball'></div>
 			<div className='first-row'>
 				<motion.header {...showUp} className='section--popProducts__header'>
 					MOST
@@ -204,7 +201,7 @@ const PopProducts: React.FC = () => {
 				</div>
 				<div className='right-side'>
 					<div className='parse-cards'>
-						{DUMMY_STARPRODUCTS.map((product) => (
+						{products.map((product) => (
 							<StarTile
 								key={product.id}
 								product={product}
@@ -230,4 +227,4 @@ const PopProducts: React.FC = () => {
 		</motion.div>
 	);
 };
-export default PopProducts;
+export default PopProductsSection;
