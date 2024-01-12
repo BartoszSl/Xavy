@@ -14,7 +14,7 @@ const StarTile: React.FC<{ product: Starproducts; animation: animationType }> = 
 						<div key={color} className={`color color-${color}`}></div>
 					))}
 				</div>
-				<Link to=''>
+				<Link to={`../product-details/${product.id}`}>
 					<i className='fa-solid fa-arrow-right'></i>
 				</Link>
 			</div>
