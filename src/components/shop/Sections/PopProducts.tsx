@@ -42,18 +42,33 @@ const trendingHashtags: hashtagsType[] = [
 	},
 ];
 
-export type COLORS = 'red' | 'green' | 'grey';
+export type colors = 'red' | 'green' | 'grey';
+
+export type sizes = 'Small' | 'Medium' | 'Large';
+
+export type reviewsType = {
+	id: string;
+	rate: number;
+	text: string;
+	author: string;
+};
 
 export type Starproducts = {
 	id: string;
-	colors: COLORS[];
+	colors: colors[];
 	img: string;
 	category: string;
 	title: string;
 	short_name: string;
 	price: number;
 	author: string;
-	rates: number;
+	reviews: reviewsType[];
+	sizes: sizes[];
+	quantity: number;
+	discount: {
+		is: boolean;
+		percent: number | null;
+	};
 };
 
 export type animationType = {
