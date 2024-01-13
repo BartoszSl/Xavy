@@ -46,7 +46,7 @@ const DesktopNavigation: React.FC = () => {
 
 	return (
 		<nav>
-			<h3 className='brand--name'>Xavy</h3>
+			<Link to='../main' className='brand--name'>Xavy</Link>
 			<Link to='' className='allCategories'>
 				<div className='allCategories--imgs'>
 					{DUMMY_IMGS.map((img) => (
