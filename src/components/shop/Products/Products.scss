@@ -177,7 +177,7 @@
 						height: 2.5rem;
 						border-radius: 0.7rem;
 						border: 2px solid c.$light-grey;
-						background: rgba(99, 94, 247, 0.15);
+						background: white;
 						cursor: pointer;
 						.color {
 							width: 55%;
@@ -193,6 +193,7 @@
 					}
 					.is-active {
 						border: 2px solid c.$primary;
+						background: rgba(99, 94, 247, 0.15);
 					}
 				}
 			}

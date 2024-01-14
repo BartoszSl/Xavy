@@ -150,7 +150,8 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 					</div>
 					<div className='colors-block'>
 						<h3 className='available'>
-							Available Colors: <span>{selectedColor}</span>
+							Available Colors:{' '}
+							<span>{selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1)}</span>
 						</h3>
 						<div className='colors'>
 							{product.colors.map((color) => (
