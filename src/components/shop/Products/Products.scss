@@ -155,30 +155,40 @@
 					}
 				}
 			}
-			.colors-block {
+			.color-size {
 				display: flex;
 				flex-direction: column;
 				gap: 0.25rem;
-				h3 {
+				.header-block {
 					font-weight: 700;
 					font-size: 0.8rem;
 					span {
 						font-weight: 400;
 					}
 				}
-				.colors {
+				.colors-sizes {
 					display: flex;
 					gap: 0.75rem;
-					.color-block {
+					.choose-block {
 						display: flex;
 						justify-content: center;
 						align-items: center;
-						width: 2.5rem;
-						height: 2.5rem;
-						border-radius: 0.7rem;
 						border: 2px solid c.$light-grey;
 						background: white;
 						cursor: pointer;
+					}
+					.is-active {
+						border: 2px solid c.$primary;
+						background: rgba(99, 94, 247, 0.15);
+					}
+				}
+			}
+			.colors-block {
+				.colors {
+					.choose-block {
+						width: 2.5rem;
+						height: 2.5rem;
+						border-radius: 0.7rem;
 						.color {
 							width: 55%;
 							height: 55%;
@@ -191,9 +201,48 @@
 							background-color: #eb5e60;
 						}
 					}
-					.is-active {
-						border: 2px solid c.$primary;
-						background: rgba(99, 94, 247, 0.15);
+				}
+			}
+			.sizes-block {
+				.sizes {
+					.choose-block {
+						padding: 0.5rem;
+						border-radius: 0.75rem;
+						.size {
+							font-size: 0.8rem;
+							color: black;
+							font-weight: 500;
+						}
+					}
+				}
+				p {
+					display: flex;
+					align-items: center;
+					gap: 0.15rem;
+					font-size: 0.6rem;
+				}
+				.red {
+					color: red;
+				}
+				.orange {
+					color: c.$orange;
+				}
+				.green {
+					color: green;
+				}
+			}
+			.to-buy-num {
+				display: flex;
+				gap: 0.75rem;
+				.num-block {
+					width: 5rem;
+					height: 2rem;
+					border: 2px solid c.$light-grey;
+					background: white;
+					border-radius: 0.5rem;
+					cursor: pointer;
+					.num {
+						font-size: 0.65rem;
 					}
 				}
 			}
