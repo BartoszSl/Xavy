@@ -1,7 +1,7 @@
 @use '../../../colors' as c;
 
 nav {
-	position: absolute	;
+	position: absolute;
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
@@ -166,10 +166,12 @@ nav {
 	display: flex;
 	gap: 0.35rem;
 	.tile {
+		position: relative;
 		height: 2.5rem;
 		padding: 0 0.75rem;
 		border-radius: 0.75rem;
 		background-color: c.$lighest-grey;
+		cursor: pointer;
 		i {
 			font-size: 0.935rem;
 			color: c.$grey;
@@ -185,6 +187,30 @@ nav {
 			p {
 				font-size: 0.7rem;
 				font-weight: 700;
+			}
+		}
+		.notification {
+			position: absolute;
+			right: -0.25rem;
+			top: -0.25rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1rem;
+			height: 1rem;
+			border-radius: 50%;
+			font-size: 0.6rem;
+			color: white;
+			font-weight: 700;
+		}
+		&--cart {
+			.notification {
+				background-color: c.$primary;
+			}
+		}
+		&--github {
+			.notification {
+				background-color: c.$orange;
 			}
 		}
 	}

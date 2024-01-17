@@ -46,7 +46,9 @@ const DesktopNavigation: React.FC = () => {
 
 	return (
 		<nav>
-			<Link to='../main' className='brand--name'>Xavy</Link>
+			<Link to='../main' className='brand--name'>
+				Xavy
+			</Link>
 			<Link to='' className='allCategories'>
 				<div className='allCategories--imgs'>
 					{DUMMY_IMGS.map((img) => (
@@ -87,14 +89,20 @@ const DesktopNavigation: React.FC = () => {
 			<div className='tiles'>
 				<div className='tile tile--cart'>
 					<i className='fa-solid fa-cart-shopping'></i>
+					<div className='notification'>2</div>
 				</div>
 				<div className='tile tile--money'>
 					<i className='fa-solid fa-wallet'></i>
 					<p>$ 421.25</p>
 				</div>
-				<div className='tile tile--github'>
+				<a
+					href='https://github.com/BartoszSl/Xavy'
+					target='_blank'
+					rel='noreferrer'
+					className='tile tile--github'>
 					<i className='fa-brands fa-github'></i>
-				</div>
+					<div className='notification'>!</div>
+				</a>
 			</div>
 			<div className='user'>
 				<img
