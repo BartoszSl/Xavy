@@ -216,7 +216,7 @@ const PopProductsSection: React.FC = () => {
 				</div>
 				<div className='right-side'>
 					<div className='parse-cards'>
-						{products.map((product) => (
+						{products.slice(0, 2).map((product) => (
 							<StarTile
 								key={product.id}
 								product={product}
@@ -230,10 +230,10 @@ const PopProductsSection: React.FC = () => {
 							<p>Check out category</p>
 						</div>
 						<img
-							src='https://www.badcock.com/images/thumbs/0030857_sofas_500.png'
-							alt='UNION PARK SOFA'
+							src={products[2].img}
+							alt={products[2].title}
 						/>
-						<Link to='' className='product-link'>
+						<Link to={`../product-details/${products[2].id}`} className='product-link'>
 							<i className='fa-solid fa-arrow-right'></i>
 						</Link>
 					</motion.div>
