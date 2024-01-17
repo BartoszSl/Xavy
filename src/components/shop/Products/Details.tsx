@@ -1,5 +1,5 @@
 import './Products.scss';
-import { Starproducts, colors } from '../Sections/PopProducts';
+import { Starproducts } from '../Sections/PopProducts';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -18,10 +18,55 @@ const buyNum = [
 	{ id: '3', text: '3' },
 ];
 
+const currentDate = new Date();
+const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+const transformDate = (date: Date | string | number) => {
+	if (date instanceof Date) {
+		const dayOfWeek = daysOfWeek[date.getDay()];
+		const month = date.toLocaleString('default', { month: 'short' });
+		const dayOfMonth = date.getDate();
+		return `${dayOfWeek}, ${month} ${dayOfMonth}`;
+	}
+
+	const parsedDate = typeof date === 'string' ? Date.parse(date) : date;
+
+	if (!isNaN(parsedDate)) {
+		const parsedDateInstance = new Date(parsedDate);
+		const dayOfWeek = daysOfWeek[parsedDateInstance.getDay()];
+		const month = parsedDateInstance.toLocaleString('default', {
+			month: 'short',
+		});
+		const dayOfMonth = parsedDateInstance.getDate();
+		return `${dayOfWeek}, ${month} ${dayOfMonth}`;
+	}
+
+	return '';
+};
+
+const shippingOptions = [
+	{
+		id: 'standard',
+		price: 'Free',
+		time: currentDate.getDate() + 3,
+		icon: <i className='fa-solid fa-truck'></i>,
+	},
+	{
+		id: 'express',
+		price: 10.99,
+		time: 'Max 1 day',
+		icon: <i className='fa-solid fa-truck-fast'></i>,
+	},
+];
+
 const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 	const [selectedImg, setSelectedImg] = useState(allImagesType[0]);
 	const [selectedColor, setSelectedColor] = useState(product.colors[0]);
 	const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+	const [selectedNumToBuy, setSelectedNumToBuy] = useState<number>(1);
+	const [selectedShippingType, setSelectedShippingType] = useState(
+		shippingOptions[0].id
+	);
 	let selectedRotate = selectedImg.rotate;
 	const starsContent = [];
 
@@ -103,6 +148,16 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 		setSelectedSize((current) => (current = filteredSizes[0]));
 	};
 
+	const changeSelectedNumToBuy = (e: React.MouseEvent<HTMLDivElement>) => {
+		const target = e.target as HTMLDivElement;
+		setSelectedNumToBuy((current) => (current = +target.id));
+	};
+
+	const changeSelectedShippingType = (id: string) => {
+		const filteredTypes = shippingOptions.filter((type) => type.id === id);
+		setSelectedShippingType((current) => (current = filteredTypes[0].id));
+	};
+
 	return (
 		<section className='product-details'>
 			<header>
@@ -137,7 +192,7 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 						/>
 					</div>
 				</div>
-				<div className='info-block'>
+				<form className='info-block'>
 					<h3 className='title'>{product.title}</h3>
 					<h4 className='author'>
 						by{' '}
@@ -155,7 +210,7 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 									</div>
 								))}
 						</div>
-						<p>{rates}</p>
+						<p>{rates.toFixed(1)}</p>
 						<p>{reviewContent}</p>
 					</div>
 					<div className='price'>
@@ -232,15 +287,86 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 					</div>
 					<div className='to-buy-num'>
 						{buyNum.map((num) => (
-							<div key={num.id} id={num.id} className='num-block'>
-								<p className='num'>Buy {num.text}</p>
+							<div
+								key={num.id}
+								id={num.id}
+								className={`num-block ${
+									+num.id === selectedNumToBuy ? 'is-active' : ''
+								}`}
+								onClick={changeSelectedNumToBuy}>
+								<p className='num' id={num.id}>
+									Buy {num.text}
+								</p>
 							</div>
 						))}
-						<div className='num-block'>
+						<div
+							className={`num-block ${
+								selectedNumToBuy >= 4 ? 'is-active' : ''
+							}`}>
 							<p className='num'>Buy more</p>
 						</div>
 					</div>
-				</div>
+					<button type='submit' className='submit-button'>
+						<h3>
+							<i className='fa-solid fa-cart-shopping'></i> Add To Card
+						</h3>
+						<span className='dot'>•</span>
+						<p>${Math.floor((currentPrice *= selectedNumToBuy))}</p>
+					</button>
+					<div className='additional-blocks'>
+						<div className='shipping'>
+							{shippingOptions.map((shipping) => (
+								<div
+									className='main'
+									key={shipping.id}
+									onClick={() => changeSelectedShippingType(shipping.id)}
+									id={shipping.id}>
+									<div
+										className={`icon ${
+											shipping.id === selectedShippingType ? 'is-active' : ''
+										}`}>
+										{shipping.icon}
+									</div>
+									<div className='block-content'>
+										<h3 className='title'>
+											{shipping.id.charAt(0).toUpperCase() +
+												shipping.id.slice(1)}{' '}
+											Shipping
+										</h3>
+										<div className='info'>
+											<p>
+												{shipping.price === 'Free'
+													? shipping.price
+													: '$' + shipping.price}
+											</p>
+											<i className='fa-regular fa-clock'></i>
+											<span>
+												{shipping.id === 'standard'
+													? transformDate(currentDate) +
+													  ' - ' +
+													  transformDate(shipping.time)
+													: shipping.time}
+											</span>
+										</div>
+									</div>
+								</div>
+							))}
+						</div>
+						<div className='main return' id='return-block'>
+							<div className='icon'>
+								<i className='fa-solid fa-boxes-packing'></i>
+							</div>
+							<div className='block-content'>
+								<h3 className='title'>Return Policy</h3>
+								<div className='info'>
+									<p>Free</p>
+									<i className='fa-regular fa-clock'></i>
+									<span>Within 60 days of receipt</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</section>
 	);
