@@ -10,7 +10,7 @@ const initialState: initialProducts = {
 		{
 			id: 'p1',
 			colors: ['red'],
-			img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMPzzQMjZlRSQ8Glx9lQvTPfoFGXmu7X-xfA',
+			img: 'https://cdn.media.amplience.net/i/teamtownsports/9042068_RedWhiteAcidOrange_6?$large$',
 			category: 'Shoes',
 			title: 'RedAI Force',
 			short_name: 'Sneakers',
@@ -42,6 +42,27 @@ const initialState: initialProducts = {
 			discount: {
 				is: true,
 				percent: 20,
+			},
+		},
+		{
+			id: 'p3',
+			colors: ['grey'],
+			img: 'https://www.badcock.com/images/thumbs/0030857_sofas_500.png',
+			category: 'Furniture',
+			title: 'UNION PARK SOFA',
+			short_name: 'Sofa',
+			price: 1390,
+			author: 'Badcock',
+			reviews: [
+				{ id: 'r1', rate: 3.7, text: 'Hmm', author: 'Jan Kowalski' },
+				{ id: 'r2', rate: 4.7, text: 'Hmm', author: 'Jan Kowalski' },
+				{ id: 'r3', rate: 4.0, text: 'Hmm', author: 'Jan Kowalski' },
+			],
+			sizes: ['Small', 'Medium', 'Large'],
+			quantity: 7,
+			discount: {
+				is: true,
+				percent: 28.75,
 			},
 		},
 	],
