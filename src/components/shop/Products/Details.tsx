@@ -2,15 +2,9 @@ import './Products.scss';
 import { Starproducts } from '../Sections/PopProducts';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-export type imgType = { id: string; rotate: string };
-
-const allImagesType: imgType[] = [
-	{ id: 'i1', rotate: 'img-rotate-normal' },
-	{ id: 'i2', rotate: 'img-rotate-right' },
-	{ id: 'i3', rotate: 'img-rotate-left' },
-	{ id: 'i4', rotate: 'img-rotate-bottom' },
-];
+import ImageBlock from './ImageBlock';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../../store/cart-redux';
 
 const buyNum = [
 	{ id: '1', text: '1' },
@@ -60,14 +54,15 @@ const shippingOptions = [
 ];
 
 const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
-	const [selectedImg, setSelectedImg] = useState(allImagesType[0]);
 	const [selectedColor, setSelectedColor] = useState(product.colors[0]);
 	const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
 	const [selectedNumToBuy, setSelectedNumToBuy] = useState<number>(1);
 	const [selectedShippingType, setSelectedShippingType] = useState(
 		shippingOptions[0].id
 	);
-	let selectedRotate = selectedImg.rotate;
+
+	const dispatch = useDispatch();
+
 	const starsContent = [];
 
 	let reviewContent = '0 Reviews';
@@ -128,12 +123,6 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 		}
 	}
 
-	const changeSelectedImage = (e: React.MouseEvent<HTMLDivElement>) => {
-		const target = e.target as HTMLDivElement;
-		const filteredImage = allImagesType.filter((img) => img.id === target.id);
-		setSelectedImg((current) => (current = filteredImage[0]));
-	};
-
 	const changeSelectedColor = (e: React.MouseEvent<HTMLDivElement>) => {
 		const target = e.target as HTMLDivElement;
 		const filteredColors = product.colors.filter(
@@ -158,6 +147,22 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 		setSelectedShippingType((current) => (current = filteredTypes[0].id));
 	};
 
+	const onBuyingHandler = (e: React.SyntheticEvent<EventTarget>) => {
+		e.preventDefault();
+
+		const item = {
+			id: product.id,
+			title: product.title,
+			color: selectedColor,
+			size: selectedSize,
+			quantity: selectedNumToBuy,
+			shippingType: selectedShippingType,
+			price: currentPrice * selectedNumToBuy,
+			image: product.img,
+		};
+
+		dispatch(cartActions.addToCart(item));
+	};
 	return (
 		<section className='product-details'>
 			<header>
@@ -165,34 +170,8 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 				<p>➛ {product.title}</p>
 			</header>
 			<div className='content'>
-				<div className='img-block'>
-					<div className='all'>
-						{allImagesType.map((img) => (
-							<div
-								key={img.id}
-								className={`rotate-image image-holder ${
-									img.id === selectedImg.id ? 'is-active' : ''
-								}`}
-								id={img.id}
-								onClick={changeSelectedImage}>
-								<img
-									src={product.img}
-									alt={`${product.title} ${img.rotate}`}
-									className={`${img.rotate}`}
-									id={img.id}
-								/>
-							</div>
-						))}
-					</div>
-					<div className='picked image-holder'>
-						<img
-							className={selectedRotate}
-							src={product.img}
-							alt={product.title}
-						/>
-					</div>
-				</div>
-				<form className='info-block'>
+				<ImageBlock image={product.img} title={product.title} />
+				<form className='info-block' onSubmit={onBuyingHandler}>
 					<h3 className='title'>{product.title}</h3>
 					<h4 className='author'>
 						by{' '}
@@ -249,6 +228,7 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 						<div className='colors colors-sizes'>
 							{product.colors.map((color) => (
 								<div
+									key={color}
 									className={`choose-block ${
 										color === selectedColor ? 'is-active' : ''
 									}`}
@@ -269,6 +249,7 @@ const ProductDetails: React.FC<{ product: Starproducts }> = ({ product }) => {
 						<div className='sizes colors-sizes'>
 							{product.sizes.map((size) => (
 								<div
+									key={size}
 									className={`choose-block ${
 										size === selectedSize ? 'is-active' : ''
 									}`}
