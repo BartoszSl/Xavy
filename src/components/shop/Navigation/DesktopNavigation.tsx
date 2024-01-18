@@ -1,6 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import './ShopNavigation.scss';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/index';
+import { AnimatePresence } from 'framer-motion';
+import Cart from './Cart';
 
 const DUMMY_IMGS = [
 	{
@@ -34,6 +38,11 @@ const DUMMY_LINKS = [
 
 const DesktopNavigation: React.FC = () => {
 	const searchRef = useRef<HTMLInputElement>(null);
+	const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+
+	const productsQuantity = useSelector(
+		(state: RootState) => state.cart.totalQuantity
+	);
 
 	const onSubmitSearch = (e: React.SyntheticEvent<EventTarget>) => {
 		e.preventDefault();
@@ -44,77 +53,92 @@ const DesktopNavigation: React.FC = () => {
 		}
 	};
 
+	const openCartHandler = () => {
+		setIsCartOpen(true);
+	};
+
+	const onCloseCart = () => {
+		setIsCartOpen(false);
+	};
+
 	return (
-		<nav>
-			<Link to='../main' className='brand--name'>
-				Xavy
-			</Link>
-			<Link to='' className='allCategories'>
-				<div className='allCategories--imgs'>
-					{DUMMY_IMGS.map((img) => (
-						<img key={img.id} src={img.src} alt={img.alt} />
-					))}
-				</div>
-				<div className='allCategories--content'>
-					<h5>PRODUCTS</h5>
-					<span>LOT OF CATEGORIES</span>
-					<div className='allCategories--content__link'>
-						<p>View All</p>
-						<div className='arrow'>
-							<i className='fa-solid fa-arrow-right'></i>
+		<>
+			<AnimatePresence>
+				{isCartOpen && productsQuantity > 0 && <Cart onDone={onCloseCart} />}
+			</AnimatePresence>
+			<nav>
+				<Link to='../main' className='brand--name'>
+					Xavy
+				</Link>
+				<Link to='' className='allCategories'>
+					<div className='allCategories--imgs'>
+						{DUMMY_IMGS.map((img) => (
+							<img key={img.id} src={img.src} alt={img.alt} />
+						))}
+					</div>
+					<div className='allCategories--content'>
+						<h5>PRODUCTS</h5>
+						<span>LOT OF CATEGORIES</span>
+						<div className='allCategories--content__link'>
+							<p>View All</p>
+							<div className='arrow'>
+								<i className='fa-solid fa-arrow-right'></i>
+							</div>
 						</div>
 					</div>
+				</Link>
+				<div className='search'>
+					<form className='search--bar' onSubmit={onSubmitSearch}>
+						<button type='submit'>
+							<i className='fa-solid fa-magnifying-glass'></i>
+						</button>
+						<input
+							type='text'
+							minLength={1}
+							ref={searchRef}
+							placeholder='Search something ...'
+						/>
+					</form>
+					<div className='search--links'>
+						{DUMMY_LINKS.map((link) => (
+							<Link key={link.id} to={link.to}>
+								{link.text}
+							</Link>
+						))}
+					</div>
 				</div>
-			</Link>
-			<div className='search'>
-				<form className='search--bar' onSubmit={onSubmitSearch}>
-					<button type='submit'>
-						<i className='fa-solid fa-magnifying-glass'></i>
-					</button>
-					<input
-						type='text'
-						minLength={1}
-						ref={searchRef}
-						placeholder='Search something ...'
+				<div className='tiles'>
+					<div className='tile tile--cart' onClick={openCartHandler}>
+						<i className='fa-solid fa-cart-shopping'></i>
+						{productsQuantity > 0 && (
+							<div className='notification'>{productsQuantity}</div>
+						)}
+					</div>
+					<div className='tile tile--money'>
+						<i className='fa-solid fa-wallet'></i>
+						<p>$ 421.25</p>
+					</div>
+					<a
+						href='https://github.com/BartoszSl/Xavy'
+						target='_blank'
+						rel='noreferrer'
+						className='tile tile--github'>
+						<i className='fa-brands fa-github'></i>
+						<div className='notification'>!</div>
+					</a>
+				</div>
+				<div className='user'>
+					<img
+						src='https://cdn.discordapp.com/attachments/1180414285231427605/1180590421534068949/OIG.png?ex=65a2e382&is=65906e82&hm=1e9760b6fca29356ddee6c72757005a6de1f8cac64ef4e47f6f468cce9664fe2&'
+						alt='user_photo'
 					/>
-				</form>
-				<div className='search--links'>
-					{DUMMY_LINKS.map((link) => (
-						<Link key={link.id} to={link.to}>
-							{link.text}
-						</Link>
-					))}
+					<div className='user--settings'>
+						<p>Bartek</p>
+						<i className='fa-solid fa-chevron-down'></i>
+					</div>
 				</div>
-			</div>
-			<div className='tiles'>
-				<div className='tile tile--cart'>
-					<i className='fa-solid fa-cart-shopping'></i>
-					<div className='notification'>2</div>
-				</div>
-				<div className='tile tile--money'>
-					<i className='fa-solid fa-wallet'></i>
-					<p>$ 421.25</p>
-				</div>
-				<a
-					href='https://github.com/BartoszSl/Xavy'
-					target='_blank'
-					rel='noreferrer'
-					className='tile tile--github'>
-					<i className='fa-brands fa-github'></i>
-					<div className='notification'>!</div>
-				</a>
-			</div>
-			<div className='user'>
-				<img
-					src='https://cdn.discordapp.com/attachments/1180414285231427605/1180590421534068949/OIG.png?ex=65a2e382&is=65906e82&hm=1e9760b6fca29356ddee6c72757005a6de1f8cac64ef4e47f6f468cce9664fe2&'
-					alt='user_photo'
-				/>
-				<div className='user--settings'>
-					<p>Bartek</p>
-					<i className='fa-solid fa-chevron-down'></i>
-				</div>
-			</div>
-		</nav>
+			</nav>
+		</>
 	);
 };
 
