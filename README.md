@@ -1,6 +1,6 @@
 # Xavy
 
-MERN application imitating a shop with ~~admin panel and accounts managment~~. Additionally, Redux is working as live data store and managment.  
+MERN application imitating a shop with ~~admin panel and accounts managment~~. Additionally, Redux is working as live data store and managment. 
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
