@@ -12,7 +12,7 @@ MERN application imitating a shop with ~~admin panel and accounts managment~~. A
 ## Prerequisites
 - Node.js (recommended version)
 - Mongodb Database
-- Localhost ports ``3000``
+- Localhost ports ``3000`` and ``5000``
 
 ## Installation 
 
