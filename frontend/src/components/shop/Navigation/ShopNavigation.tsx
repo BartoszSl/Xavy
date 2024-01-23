@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import PhoneNavigation from './PhoneNavigation';
 import DesktopNavigation from './DesktopNavigation';
+import { User } from '../../../store/user-redux';
 
-const ShopNavigation: React.FC = () => {
+const ShopNavigation: React.FC<{ userData?: User }> = ({ userData }) => {
 	const [pageWidth, setPageWidth] = useState(window.innerWidth);
 	const breakPoint = 768;
 
