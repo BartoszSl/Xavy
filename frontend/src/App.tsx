@@ -17,7 +17,7 @@ import { queryClient } from './util/http';
 export const DefaultPage: React.FC = () => {
 	return (
 		<>
-			<Navigate to='/shop/main' />
+			<Navigate to='/auth?mode=login' />
 			<Outlet />
 		</>
 	);
