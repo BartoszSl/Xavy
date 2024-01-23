@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express())
 
 const ProdRoute = require('./Routes/Products-routes')
-
+const AuthRoute = require('./Routes/Auth-routes')
 mongoose.connect('mongodb://localhost:27017/bartek')
 
 
@@ -19,6 +19,7 @@ app.get('/api',(req,res)=>{
 })
 
 
+app.use('/api/auth',AuthRoute)
 app.use('/api/products',ProdRoute)
 
 
