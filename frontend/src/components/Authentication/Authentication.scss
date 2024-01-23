@@ -1,0 +1,138 @@
+@use '../../colors' as c;
+
+.auth-main {
+	display: flex;
+	justify-content: space-between;
+	background-color: #1a1a1a;
+	img {
+		width: 55%;
+		height: 100vh;
+		object-fit: cover;
+	}
+	section {
+		padding-top: 4rem;
+		padding-left: 2rem;
+		width: 45%;
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+			margin: 0 auto;
+			width: 60%;
+			color: white;
+			header {
+				font-size: 2rem;
+			}
+			span {
+				font-size: 1rem;
+				font-weight: 400;
+				margin-top: 0.5rem;
+				color: c.$grey;
+			}
+			.inputs {
+				display: flex;
+				flex-direction: column;
+				.parse-row {
+					display: flex;
+					gap: 1rem;
+					input {
+						max-width: (100% - 4%) /2;
+					}
+				}
+				input {
+					border: none;
+					background: none;
+					color: c.$grey;
+					margin: 1rem 0;
+					padding: 0.3rem 1rem;
+					font-size: 0.8rem;
+					border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+				}
+			}
+			.seller-type {
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+				.blocks {
+					display: flex;
+					flex-direction: column;
+					gap: 0.35rem;
+					.seller-block {
+						display: flex;
+						gap: 1rem;
+						width: 100%;
+						padding: 0.5rem 0.5rem;
+						border: 1px solid c.$grey;
+						border-radius: 0.4rem;
+						cursor: pointer;
+						.icon {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							width: 2.5rem;
+							height: 2.5rem;
+							border: 1px solid c.$grey;
+							border-radius: 0.2rem;
+							i {
+								font-size: 1rem;
+							}
+						}
+						.content {
+							display: flex;
+							flex-direction: column;
+							justify-content: space-between;
+							h3,
+							p {
+								font-size: 0.9rem;
+							}
+							p {
+								color: c.$grey;
+							}
+						}
+					}
+					.is-active {
+						border: 1px solid white;
+					}
+				}
+			}
+			.controls {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				a {
+					text-decoration: none;
+					font-size: 1rem;
+					color: c.$grey;
+				}
+				button {
+					padding: 0.5rem;
+					background: white;
+					color: black;
+					border-radius: 0.4rem;
+					border: none;
+					font-weight: 700;
+					font-size: 0.9rem;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1200px) {
+	.auth-main {
+		section {
+			form {
+				.inputs {
+					.parse-row {
+						flex-direction: column;
+						gap: 0;
+						input {
+							max-width: 100%;
+						}
+					}
+				}
+			}
+		}
+	}
+}
