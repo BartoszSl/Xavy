@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import './ShopNavigation.scss';
-import { Link } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/index';
 import { AnimatePresence } from 'framer-motion';
@@ -132,10 +132,12 @@ const DesktopNavigation: React.FC = () => {
 						src='https://cdn.discordapp.com/attachments/1180414285231427605/1180590421534068949/OIG.png?ex=65a2e382&is=65906e82&hm=1e9760b6fca29356ddee6c72757005a6de1f8cac64ef4e47f6f468cce9664fe2&'
 						alt='user_photo'
 					/>
-					<div className='user--settings'>
-						<p>Bartek</p>
-						<i className='fa-solid fa-chevron-down'></i>
-					</div>
+					<Form action='/logout' method='POST' className='user--settings'>
+						<button>
+							<p>Bartek</p>
+							<i className='fa-solid fa-right-from-bracket'></i>
+						</button>
+					</Form>
 				</div>
 			</nav>
 		</>

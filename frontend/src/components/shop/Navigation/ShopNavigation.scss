@@ -369,10 +369,15 @@ nav {
 		color: c.$grey;
 	}
 	&--settings {
-		display: flex;
-		align-items: center;
-		gap: 0.4rem;
-		cursor: pointer;
+		button {
+			display: flex;
+			align-items: center;
+			gap: 0.4rem;
+			text-decoration: none;
+			border: none;
+			background: none;
+			cursor: pointer;
+		}
 	}
 }
 
