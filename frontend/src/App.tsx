@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import ShopPage from './pages/Shop';
 import DashboardRootLayout from './pages/DashboardRoot';
-import AuthPage from './pages/Auth';
+import AuthPage, { action as authAction } from './pages/Authentication';
 import { action as logoutAction } from './pages/Logout';
 import ProductDetailsPage from './pages/ProductDetails';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'product-details/:id',
-						element: <ProductDetailsPage />
+						element: <ProductDetailsPage />,
 					},
 				],
 			},
@@ -54,6 +54,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'auth',
+				action: authAction,
 				element: <AuthPage />,
 			},
 			{
