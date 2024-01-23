@@ -31,7 +31,7 @@ export const action = async ({ request }: { request: Request }) => {
 		password: data.get('password'),
 	};
 
-	const response = await fetch('http://localhost:5000/' + mode, {
+	const response = await fetch('http://localhost:5000/api/auth/' + mode, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -49,8 +49,10 @@ export const action = async ({ request }: { request: Request }) => {
 
 	const resData = await response.json();
 	const token = resData.token;
+	const userId = resData.id
 
 	localStorage.setItem('token', token);
+	localStorage.setItem('userid', userId)
 
 	const expiration = new Date();
 	expiration.setHours(expiration.getHours() + 1);

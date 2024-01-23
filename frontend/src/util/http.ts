@@ -31,3 +31,19 @@ const checkResponse = async (response: Response) => {
 
 	return response.json();
 };
+
+export const fetchUserById = async ({ id, signal }: any) => {
+	const response = await fetch('http://localhost:5000/fetchUser/', {
+		method: 'POST',
+		body: JSON.stringify(id),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+	checkResponse(response);
+
+	const { user } = await response.json();
+
+	return user;
+};
