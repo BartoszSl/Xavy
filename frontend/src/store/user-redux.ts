@@ -7,4 +7,5 @@ export type User = {
     image: String;
     money: number;
     cart_id: String;
+    phoneNum: number;
 };
