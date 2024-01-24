@@ -3,22 +3,22 @@ import ShopNavigation from '../components/shop/Navigation/ShopNavigation';
 import PopProductsSection from '../components/shop/Sections/PopProducts';
 import ReviewsSection from '../components/shop/Sections/Reviews';
 import FooterSection from '../components/shop/Sections/Footer';
-import { redirect, useParams } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 import { fetchUserById, queryClient } from '../util/http';
 import { useQuery } from '@tanstack/react-query';
 
 const ShopPage: React.FC = () => {
-	const token = localStorage.getItem('token');
-	const id = localStorage.getItem('userid')
+	// const token = localStorage.getItem('token');
+	const id = localStorage.getItem('userid');
 
-	if (!token) {
-		redirect('/auth?mode=login');
-	}
+	// if (!token) {
+	// 	redirect('/auth?mode=login');
+	// }
 
-	const {data} = useQuery({
+	const { data } = useQuery({
 		queryKey: ['users', id],
 		queryFn: ({ signal }) => fetchUserById({ signal, id }),
-	})
+	});
 
 	return (
 		<>
