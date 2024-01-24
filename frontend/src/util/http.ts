@@ -33,9 +33,9 @@ const checkResponse = async (response: Response) => {
 };
 
 export const fetchUserById = async ({ id, signal }: any) => {
-	const response = await fetch('http://localhost:5000/fetchUser/', {
+	const response = await fetch('http://localhost:5000/api/auth/fetchUser', {
 		method: 'POST',
-		body: JSON.stringify(id),
+		body: JSON.stringify({ id }),
 		headers: {
 			'Content-Type': 'application/json',
 		},
