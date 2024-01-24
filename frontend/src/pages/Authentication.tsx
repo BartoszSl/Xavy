@@ -26,12 +26,12 @@ export const action = async ({ request }: { request: Request }) => {
 	}
 
 	const data = await request.formData();
-	const authData = {
+	let authData = {
 		email: data.get('email'),
 		password: data.get('password'),
 	};
 
-	const response = await fetch('http://localhost:5000/api/auth/' + mode, {
+	const response = await fetch(`http://localhost:5000/api/auth/${mode}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -39,6 +39,7 @@ export const action = async ({ request }: { request: Request }) => {
 		body: JSON.stringify(authData),
 	});
 
+	
 	if (response.status === 422 || response.status === 401) {
 		return response;
 	}
@@ -48,11 +49,13 @@ export const action = async ({ request }: { request: Request }) => {
 	}
 
 	const resData = await response.json();
-	const token = resData.token;
-	const userId = resData.id
+	// const token = resData.token;
 
-	localStorage.setItem('token', token);
-	localStorage.setItem('userid', userId)
+	const userId = resData.user._id
+
+
+	// localStorage.setItem('token', token);
+	localStorage.setItem('userid', userId);
 
 	const expiration = new Date();
 	expiration.setHours(expiration.getHours() + 1);
