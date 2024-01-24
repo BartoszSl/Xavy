@@ -75,14 +75,14 @@ const AuthForm: React.FC = () => {
 				{!isLogin && (
 					<input type='tel' name='' id='' placeholder='(+48) 000-000-000' />
 				)}
-				{isLogin && (
+				
 					<input
 						type='password'
 						name='password'
 						id='password'
 						placeholder='Password'
 					/>
-				)}
+			
 			</div>
 			{!isLogin && (
 				<div className='seller-type'>
