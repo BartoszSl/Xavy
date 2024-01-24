@@ -50,6 +50,7 @@ const cartSlice = createSlice({
 				state.items = state.items.filter((item) => item.id !== id);
 				state.totalQuantity--;
 			} else {
+				exsistingItem!.price -= exsistingItem!.price / exsistingItem!.quantity;
 				exsistingItem!.quantity--;
 			}
 		},
