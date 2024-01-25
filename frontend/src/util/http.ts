@@ -1,6 +1,12 @@
 import { QueryClient } from '@tanstack/react-query';
+import { User } from '../store/user-redux';
 
 export const queryClient = new QueryClient();
+
+export type importedUser = {
+	message: string;
+	user: User;
+};
 
 class CustomError extends Error {
 	code: number;
@@ -21,7 +27,12 @@ class CustomError extends Error {
 	}
 }
 
-const checkResponse = async (response: Response) => {
+export const fetchUserById = async ({ id, signal }: any) => {
+
+	const response = await fetch(
+		`http://localhost:5000/api/auth/fetchUser/${id}`
+	);
+
 	if (!response.ok) {
 		const error = new CustomError('An error occured while fetching records');
 		error.setCode(response.status);
@@ -29,21 +40,12 @@ const checkResponse = async (response: Response) => {
 		throw error;
 	}
 
-	return response.json();
-};
+	const data: importedUser = await response.json();
 
-export const fetchUserById = async ({ id, signal }: any) => {
-	const response = await fetch('http://localhost:5000/api/auth/fetchUser', {
-		method: 'POST',
-		body: JSON.stringify({ id }),
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	});
+	if (data.message !== 'found') {
+		const error = new CustomError('An error occurred while fetching user');
+		throw error;
+	}
 
-	checkResponse(response);
-
-	const { user } = await response.json();
-
-	return user;
+	return data.user;
 };
