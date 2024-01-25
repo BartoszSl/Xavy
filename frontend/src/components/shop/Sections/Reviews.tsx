@@ -56,6 +56,7 @@ const ReviewsSection: React.FC = () => {
 							+review.id === currentIndex ? 'is-active' : ''
 						}`}></div>
 				))}
+				<p>Sadly, no idea for design</p>
 			</div>
 			<div className='section--reviews__controls'>
 				<button
