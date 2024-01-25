@@ -87,8 +87,6 @@ export type animationType = {
 const PopProductsSection: React.FC = () => {
 	const products = useSelector((state: RootState) => state.products.products);
 
-	console.log(products);
-
 	const sectionRef = useRef<HTMLDivElement>(null);
 	const scaleAnimationF = useAnimation();
 	const showUpAnimationF = useAnimation();
