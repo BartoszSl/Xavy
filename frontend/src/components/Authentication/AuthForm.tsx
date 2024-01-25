@@ -73,7 +73,7 @@ const AuthForm: React.FC = () => {
 				)}
 				<input type='email' name='email' id='email' placeholder='Email' />
 				{!isLogin && (
-					<input type='tel' name='' id='' placeholder='(+48) 000-000-000' />
+					<input type='tel' name='phoneNum' id='phoneNum' placeholder='(+48) 000-000-000' />
 				)}
 				
 					<input
