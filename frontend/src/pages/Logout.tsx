@@ -5,5 +5,5 @@ export const action = () => {
 	localStorage.removeItem('expiration');
 	localStorage.removeItem('userid')
 
-	return redirect('/auth');
+	return redirect('/auth?mode=login');
 };
