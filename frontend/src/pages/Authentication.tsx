@@ -26,9 +26,12 @@ export const action = async ({ request }: { request: Request }) => {
 	}
 
 	const data = await request.formData();
-	let authData = {
+	const authData = {
 		email: data.get('email'),
 		password: data.get('password'),
+		firstName: data.get('first_name') || null,
+		surname: data.get('surname') || null,
+		phoneNum: data.get('phoneNum') || null
 	};
 
 	const response = await fetch(`http://localhost:5000/api/auth/${mode}`, {
@@ -39,7 +42,6 @@ export const action = async ({ request }: { request: Request }) => {
 		body: JSON.stringify(authData),
 	});
 
-	
 	if (response.status === 422 || response.status === 401) {
 		return response;
 	}
@@ -51,8 +53,7 @@ export const action = async ({ request }: { request: Request }) => {
 	const resData = await response.json();
 	// const token = resData.token;
 
-	const userId = resData.user._id
-
+	const userId = resData.user._id;
 
 	// localStorage.setItem('token', token);
 	localStorage.setItem('userid', userId);
