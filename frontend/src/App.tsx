@@ -6,7 +6,7 @@ import {
 	RouterProvider,
 	createBrowserRouter,
 } from 'react-router-dom';
-import ShopPage from './pages/Shop';
+import ShopPage, { loader as fetchUser } from './pages/Shop';
 import DashboardRootLayout from './pages/DashboardRoot';
 import AuthPage, { action as authAction } from './pages/Authentication';
 import { action as logoutAction } from './pages/Logout';
@@ -15,9 +15,11 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './util/http';
 
 export const DefaultPage: React.FC = () => {
+	const id = localStorage.getItem('userid');
+	
 	return (
 		<>
-			<Navigate to='/auth?mode=login' />
+			{!id && <Navigate to='/auth?mode=login' />}
 			<Outlet />
 		</>
 	);
@@ -30,6 +32,8 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: 'shop',
+				id: 'shop',
+				loader: fetchUser,
 				children: [
 					{
 						path: 'main',
