@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export type User = {
-	id: string;
+	_id: string;
 	firstName: string;
 	surName: string;
 	email: string;
@@ -23,7 +23,7 @@ export type payloadAction = {
 
 const initialState: initialUser = {
 	user: {
-		id: '0',
+		_id: '0',
 		firstName: '',
 		surName: '',
 		email: '',

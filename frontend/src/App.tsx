@@ -16,10 +16,11 @@ import { queryClient } from './util/http';
 
 export const DefaultPage: React.FC = () => {
 	const id = localStorage.getItem('userid');
-	
+
 	return (
 		<>
 			{!id && <Navigate to='/auth?mode=login' />}
+			{id && <Navigate to='/shop/main' />}
 			<Outlet />
 		</>
 	);

@@ -11,15 +11,15 @@ app.use(express());
 
 const ProdRoute = require('./Routes/Products-routes');
 const AuthRoute = require('./Routes/Auth-routes');
+const UserRoute = require('./Routes/User-routes');
 
 try {
 	mongoose.connect('mongodb://127.0.0.1:27017/bartek');
-	
+
 	console.log('Połączone');
 } catch (err) {
 	console.log(err);
 }
-
 
 app.get('/api', (req, res) => {
 	res.send('Xavy-Master API');
@@ -27,5 +27,6 @@ app.get('/api', (req, res) => {
 
 app.use('/api/auth', AuthRoute);
 app.use('/api/products', ProdRoute);
+app.use('/api/user', UserRoute);
 
 app.listen(5000);

@@ -28,7 +28,6 @@ class CustomError extends Error {
 }
 
 export const fetchUserById = async ({ id, signal }: any) => {
-
 	const response = await fetch(
 		`http://localhost:5000/api/auth/fetchUser/${id}`
 	);
@@ -48,4 +47,113 @@ export const fetchUserById = async ({ id, signal }: any) => {
 	}
 
 	return data.user;
+};
+
+export const updateProfilePicture = async ({
+	id,
+	picture,
+}: {
+	id: string;
+	picture: string;
+}) => {
+	console.log(id + picture);
+	const response = await fetch(`http://localhost:5000/api/user/image/${id}`, {
+		method: 'POST',
+		body: JSON.stringify({ picture }),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+
+	if (!response.ok) {
+		const error = new CustomError('An error occured while updating image');
+		error.setCode(response.status);
+		error.setInfo(await response.json());
+		throw error;
+	}
+
+	console.log('Last wall');
+
+	return response.json();
+};
+
+export const updateProfileName = async ({
+	id,
+	firstName,
+	surName,
+}: {
+	id: string;
+	firstName: string;
+	surName: string;
+}) => {
+	const response = await fetch(`http:/localhost/api/user/name/${id}`, {
+		method: 'PUT',
+		body: JSON.stringify({
+			firstName,
+			surName,
+		}),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+	if (!response.ok) {
+		const error = new CustomError('An error occured while updating image');
+		error.setCode(response.status);
+		error.setInfo(await response.json());
+		throw error;
+	}
+
+	return response.json();
+};
+
+export const updateProfileEmail = async ({
+	id,
+	email,
+}: {
+	id: string;
+	email: string;
+}) => {
+	const response = await fetch(`http:/localhost/api/user/email/${id}`, {
+		method: 'PUT',
+		body: JSON.stringify({ email }),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+	if (!response.ok) {
+		const error = new CustomError('An error occured while updating image');
+		error.setCode(response.status);
+		error.setInfo(await response.json());
+		throw error;
+	}
+
+	return response.json();
+};
+
+export const updateProfilePassword = async ({
+	id,
+	password,
+}: {
+	id: string;
+	password: string;
+}) => {
+	const response = await fetch(`http:/localhost/api/user/password/${id}`, {
+		method: 'PUT',
+		body: JSON.stringify({ password }),
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	});
+
+	if (!response.ok) {
+		const error = new CustomError('An error occured while updating image');
+		error.setCode(response.status);
+		error.setInfo(await response.json());
+		throw error;
+	}
+
+	return response.json();
 };
