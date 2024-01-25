@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
+import {  useRef, useState } from 'react';
 import './ShopNavigation.scss';
 import { Form, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/index';
 import { AnimatePresence } from 'framer-motion';
 import Cart from './Cart';
+import AccountSettings from './AccountSettings';
 
 const DUMMY_IMGS = [
 	{
@@ -37,8 +38,10 @@ const DUMMY_LINKS = [
 ];
 
 const DesktopNavigation: React.FC = () => {
+	const user = useSelector((state: RootState) => state.user.user);
 	const searchRef = useRef<HTMLInputElement>(null);
 	const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+	const [isAccountSettingsOpen, setIsAccountSettingsOpen] = useState(false);
 
 	const productsQuantity = useSelector(
 		(state: RootState) => state.cart.totalQuantity
@@ -61,10 +64,21 @@ const DesktopNavigation: React.FC = () => {
 		setIsCartOpen(false);
 	};
 
+	const handleCloseAccountSettings = () => {
+		setIsAccountSettingsOpen(false);
+	};
+
+	const handleOpenAccountSettings = () => {
+		setIsAccountSettingsOpen(true);
+	};
+
 	return (
 		<>
 			<AnimatePresence>
 				{isCartOpen && productsQuantity > 0 && <Cart onDone={onCloseCart} />}
+				{isAccountSettingsOpen && (
+					<AccountSettings onDone={handleCloseAccountSettings} />
+				)}
 			</AnimatePresence>
 			<nav>
 				<Link to='../main' className='brand--name'>
@@ -116,7 +130,7 @@ const DesktopNavigation: React.FC = () => {
 					</div>
 					<div className='tile tile--money'>
 						<i className='fa-solid fa-wallet'></i>
-						<p>$ 421.25</p>
+						<p>$ {user.money}</p>
 					</div>
 					<a
 						href='https://github.com/BartoszSl/Xavy'
@@ -129,12 +143,13 @@ const DesktopNavigation: React.FC = () => {
 				</div>
 				<div className='user'>
 					<img
-						src='https://cdn.discordapp.com/attachments/1180414285231427605/1180590421534068949/OIG.png?ex=65a2e382&is=65906e82&hm=1e9760b6fca29356ddee6c72757005a6de1f8cac64ef4e47f6f468cce9664fe2&'
+						onClick={handleOpenAccountSettings}
+						src={user.image}
 						alt='user_photo'
 					/>
 					<Form action='/logout' method='POST' className='user--settings'>
 						<button>
-							<p>Bartek</p>
+							<p>{user.firstName}</p>
 							<i className='fa-solid fa-right-from-bracket'></i>
 						</button>
 					</Form>
