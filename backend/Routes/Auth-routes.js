@@ -5,14 +5,16 @@ const Router = express.Router();
 const Auth = require('../models/Auth');
 
 Router.get('/', async (req, res) => {
-	res.send('login or reg');
+	res.send('login or reg');pp
 });
 
-Router.post('/fetchUser', async (req, res) => {
+Router.get('/fetchUser/:id', async (req, res) => {
 	// const Id = req.params.id
 	// const idset = await Auth.findById(Id)
 	// res.json({user_data: idset});
-	const { id } = req.body;
+	const { id } = req.params;
+
+	console.log('Sent request -- API');
 
 	const _id = id;
 	if (!_id) {
@@ -20,12 +22,13 @@ Router.post('/fetchUser', async (req, res) => {
 	}
 
 	try {
-		const Id = await Auth.findOne({ _id });
-		if (!Id) {
+		const user = await Auth.findOne({ _id });
+		if (!user) {
 			return res.status(401).json({ error: 'error Nie ma takiego usera' });
 		}
 
-		res.status(200).json({ message: 'found', Id });
+		console.log(user);
+		res.status(200).json({ message: 'found', user: user });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: 'Error' });
@@ -63,7 +66,7 @@ Router.post('/login', async (req, res) => {
 });
 
 Router.post('/signup', async (req, res) => {
-	const { email, password } = req.body;
+	const { email, password, firstName, surname, phoneNum } = req.body;
 
 	console.log(req.body);
 
@@ -78,9 +81,18 @@ Router.post('/signup', async (req, res) => {
 			return res.status(400).json({ error: 'Email już użyty.' });
 		}
 
+		const randomMoney = Math.random() * (99.99 - 0.01) + 0.01;
+
 		const newUser = new Auth({
+			firstName,
+			surName: surname,
 			email,
 			password,
+			phoneNum,
+			image:
+				'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-541.jpg?w=360',
+			money: +randomMoney.toFixed(2),
+			cart_id: ''
 		});
 		await newUser.save();
 
