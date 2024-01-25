@@ -6,23 +6,31 @@ import FooterSection from '../components/shop/Sections/Footer';
 import { redirect } from 'react-router-dom';
 import { fetchUserById, queryClient } from '../util/http';
 import { useQuery } from '@tanstack/react-query';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../store/user-redux';
 
 const ShopPage: React.FC = () => {
 	// const token = localStorage.getItem('token');
 	const id = localStorage.getItem('userid');
 
-	// if (!token) {
-	// 	redirect('/auth?mode=login');
-	// }
+	if (!id) {
+		redirect('/auth?mode=login');
+	}
 
-	const { data } = useQuery({
+	const { data: user } = useQuery({
 		queryKey: ['users', id],
-		queryFn: ({ signal }) => fetchUserById({ signal, id }),
+		queryFn: ({ signal }) => fetchUserById({ id, signal }),
 	});
+
+	const dispatch = useDispatch();
+
+	if (user) {
+		dispatch(userActions.importUser(user));
+	}
 
 	return (
 		<>
-			<ShopNavigation userData={data} />
+			<ShopNavigation />
 			<main className='container'>
 				<MainSection />
 				<PopProductsSection />
@@ -32,11 +40,18 @@ const ShopPage: React.FC = () => {
 		</>
 	);
 };
+
 export default ShopPage;
 
-export const loader = ({ params }: any) => {
+export const loader = async () => {
+	const id = localStorage.getItem('userid');
+
+	if (!id) {
+		return redirect('/auth?mode=login');
+	}
+
 	return queryClient.fetchQuery({
-		queryKey: ['users', params.id],
-		queryFn: ({ signal }) => fetchUserById({ signal, id: params.id }),
+		queryKey: ['users', id],
+		queryFn: ({ signal }) => fetchUserById({ signal, id }),
 	});
 };
